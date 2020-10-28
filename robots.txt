@@ -1,0 +1,9 @@
+# www.robotstxt.org/
+# guideline: "disallow: " = all robots can have access = not creating a robots.txt file at all = creating an empty robots.txt file
+# guideline: "disallow: /" = no robot can have access
+# more on http://www.robotstxt.org/robotstxt.html
+
+
+# Allow crawling of all content
+User-agent: *
+Disallow:
