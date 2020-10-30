@@ -84,19 +84,161 @@ body {
     width: 100%;
     min-height: 100%;
     background-color: white;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+.app {
+    width: 100vw;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title h2 {
+    font-size: 6vw;
+    font-weight: bolder;
+    margin: 5vh 0 1vh 0;
+    letter-spacing: 0.5vw;
+    margin-left: 0.5vw;
+}
+
+.input {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4vh 0;
+}
+
+.keyboardDisplay {
+    position: absolute;
+    left: 50%;
+    bottom: 41vh;
+    transform: translate(-50%, 0);
+    font-size: 2.5rem;
+    color: rgba(128, 128, 128, 0.9);
+    cursor: pointer;
+    transition: 0.3s ease-in-out all;
+}
+
+.input textarea {
+    width: 80%;
+    min-height: 15.626rem;
+    height: 39vh;
+    resize: none;
+    padding: 1rem;
+    margin-bottom: 40vh;
+    background: rgba(241, 241, 241, 0.7);
+    border: none;
+    box-shadow: 0px -3px 10px rgb(206, 205, 205);
+}
+
+.input textarea:active,
+.input textarea:focus{
+    outline: none;
+}
+
+.input textarea::selection,
+.input textarea::-moz-selection {
+    background: grey;
+}
+
+.keyboard {
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 40vh;
+    min-height: 15.75rem;
+    bottom: -100vh;
+    left: 0;
+    background: rgba(241, 241, 241, 1.0);
+    box-shadow: 0px -3px 10px rgb(206, 205, 205);
+    transition: 0.7s ease-in-out all;
+}
+
+.words {
+    display: flex;
+    width: 95%;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    width: 8%;
+    height: 6vh;
+    min-height: 2.8125rem;
+    margin: 0 1%;
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media only screen and (min-width: 576px) {}
+@media only screen and (min-width: 576px) {
+
+    .title h2 {
+        font-size: 2.2rem;
+        margin: 2.5rem 0 0.5rem 0;
+        letter-spacing: 0.2rem;
+        margin-left: 0.2rem;
+    }
+
+    .words {
+        width: 81%;
+    }
+}
 
 /* Medium devices (tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
+@media only screen and (min-width: 768px) {
+
+    .input textarea {
+        width: 79%;
+    }
+
+    .words {
+        width: 80%;
+    }
+}
 
 /* Large devices (desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+
+    .input textarea {
+        width: 69%;
+    }
+
+    .words {
+        width: 70%;
+    }
+}
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+
+    .input textarea {
+        width: 59%;
+    }
+
+    .words {
+        width: 60%;
+    }
+}
 
 /* ==========================================================================
    Helper classes

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Virtual Keyboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- add google search description here -->
@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="styles/normalize.min.css">
     <link rel="stylesheet" href="styles/main.css">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     <!-- Preload your font(s) here by adding the href and type -->
     <link rel="preload" href="" as="font" type="font/" crossorigin>
 
@@ -41,7 +45,71 @@
     
     <!-- SITE CONTENT STARTS HERE -->
 
-    <p>Yo!</p>
+    <div class="app" id="jumpToTheTop">
+        <div class="title">
+            <h2>VIRTUAL KEYBOARD</h2>
+        </div>
+            
+        <div class="input" id="jumpToInput">
+            <textarea placeholder="Click here ... " name="" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="keyboard">
+
+            <div class="words">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>0</button>
+                
+                <button>q</button>
+                <button>w</button>
+                <button>e</button>
+                <button>r</button>
+                <button>t</button>
+                <button>y</button>
+                <button>u</button>
+                <button>r</button>
+                <button>o</button>
+                <button>p</button>
+
+                <button>a</button>
+                <button>s</button>
+                <button>d</button>
+                <button>f</button>
+                <button>g</button>
+                <button>h</button>
+                <button>j</button>
+                <button>k</button>
+                <button>l</button>
+                
+                <button style="width: 13%;" class="fal fa-arrow-alt-up"></button>
+                <button>z</button>
+                <button>x</button>
+                <button>c</button>
+                <button>v</button>
+                <button>b</button>
+                <button>n</button>
+                <button>m</button>
+                <button style="width: 13%;" class="fal fa-backspace"></button>
+
+
+                <button style="width: 13%;">Sym</button>
+                <button class="fal fa-smile"></button>
+                <button style="width: 48%;" class="fal fa-horizontal-rule"></button>
+                <button>.</button>
+                <button style="width: 13%;" class="fal fa-arrow-alt-left"></button>
+        
+            </div>
+            <!--<div class="symbols"></div>-->
+        </div>
+    </div>
 
     <!-- SITE CONTENT ENDS HERE -->
 
