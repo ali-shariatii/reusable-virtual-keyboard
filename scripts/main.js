@@ -1,6 +1,5 @@
 "use strict";
 
-
 let keyboardApp = () => {
 
     const input = document.getElementsByClassName("input")[0].childNodes[1];
@@ -34,7 +33,7 @@ let keyboardApp = () => {
     keyboardDisplayer(input, keyboard);
 
     // KEYBOARD BUILDER
-    let keybordBuilder = () => {
+    let keybordBuilder = () => {;
         // button objects with special functions
         const capsLock = {
             value: "",
@@ -43,25 +42,29 @@ let keyboardApp = () => {
             },
             class: {
                 0: "fal",
-                1: "fa-arrow-alt-up"
+                1: "fa-arrow-alt-up",
             },
             operator: () => {
                 let btn = document.querySelectorAll(".words button");
-    
+                let indicatorBtn = document.querySelector(".fa-arrow-alt-up div");
+                
                 for(let i = 0; i < btn.length; i++) {
-                    if ((/[a-z]/.test(btn[i].innerHTML) || /[A-Z]/.test(btn[i].innerHTML)) && btn[i].innerHTML !== "Sym") {
+                    if ((/[a-z]/.test(btn[i].innerText) || /[A-Z]/.test(btn[i].innerText)) && btn[i].innerText !== "Sym") {
                         let isLowerCase = true;
-    
+                    
                         if (/[a-z]/.test(btn[i].innerHTML)) {
                             btn[i].innerText = btn[i].innerText.toUpperCase();
+                            indicatorBtn.style.background = " rgb(16, 230, 16)";
                             isLowerCase = false;
                         }
     
                         if (isLowerCase) {
+                            indicatorBtn.style.background = "rgba(218, 218, 218, 0.6)";
                             btn[i].innerText = btn[i].innerText.toLowerCase();
                         }
                     }
                 }
+                
             } 
         }
     
@@ -75,10 +78,13 @@ let keyboardApp = () => {
                 1: "fa-backspace"
             },
             operator: () => {
-                //create a funciton that removes everything witch is highlighted
-                const txt = input.value.slice(0, input.value.lastIndexOf(input.value.charAt(input.value.length - 1)));
-                let txtNode = document.createTextNode(txt).nodeValue;
-                input.value = txtNode;
+
+                let txtVal = input.value;
+                let updateVal = `${txtVal.slice(0, input.selectionStart - 1)}${txtVal.slice(input.selectionStart)}`;
+                input.value = updateVal;
+                
+                //create a function that removes everything witch is highlighted
+                //input.selectionStart = 1;
             }     
         }
     
@@ -106,7 +112,7 @@ let keyboardApp = () => {
                 1: "fa-horizontal-rule"
             },
             operator: () => {
-                input.value += ` `;
+              
             } 
         }
     
@@ -123,7 +129,6 @@ let keyboardApp = () => {
             },
             operator: () => {
                 input.value += `\n`;
-
             } 
         }
     
@@ -152,6 +157,7 @@ let keyboardApp = () => {
             newBtn.style.cursor = "pointer";
             newBtn.style.transition = "0.3s linear all";
             newBtn.style.outline = "none";
+            newBtn.style.position = "relative";
     
             // setting the behavior of each button based on its type and functionality.
             switch (true) {
@@ -163,13 +169,14 @@ let keyboardApp = () => {
             
                     newBtn.addEventListener("click", function() {
                         const txt = this.innerText;
-                        let txtNode = document.createTextNode(txt).nodeValue;
-                        input.value += txtNode;
+                        input.value += txt;
                     });
                     break;
     
                 // displaying buttons with special application and calling their functions on click event
                 default :
+                    words.appendChild(newBtn);
+
                     if (item.style.width !== "") {
                         newBtn.style.width = item.style.width;
                     }
@@ -178,11 +185,25 @@ let keyboardApp = () => {
                         newBtn.classList.add(item.class[0], item.class[1]);
                     }
     
+                    //for capsLock btn indicator light 
+                    if  (/fa-arrow-alt-up/.test(newBtn.className)) {
+                        let indicatorBtn = document.createElement("div");
+                        indicatorBtn.style.position = "absolute";
+                        indicatorBtn.style.top = "15%";
+                        indicatorBtn.style.right = "10%";
+                        indicatorBtn.style.borderRadius = "100%";
+                        indicatorBtn.style.background = "rgba(218, 218, 218, 0.6)";
+                        indicatorBtn.style.width = "0.525rem";
+                        indicatorBtn.style.height = "0.525rem";
+                        indicatorBtn.style.transition = "0.2s ease-in all";
+
+                        newBtn.appendChild(indicatorBtn);
+                    }
+
                     if (item.value !== "") {
                         newBtn.innerHTML = item.value;
                     }
     
-                    words.appendChild(newBtn);
                     newBtn.addEventListener("click", item.operator);
                     break;
             }
@@ -190,6 +211,7 @@ let keyboardApp = () => {
     };
 
     keybordBuilder();
+    console.log(document.querySelector(".fa-arrow-alt-up").childNodes);
 };
 
 keyboardApp();
