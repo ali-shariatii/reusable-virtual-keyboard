@@ -18,10 +18,12 @@
 
 ::-moz-selection {
     text-shadow: none;
+    background: grey !important;
 }
 
 ::selection {
     text-shadow: none;
+    background: grey !important;
 }
 
 /* A better looking default horizontal rule */
@@ -72,6 +74,7 @@ textarea {
     padding: 0;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch;  
 }
 
 html {
@@ -80,6 +83,7 @@ html {
     font-size: 1em;
     line-height: 1.4;
     background-color: white;
+    overflow: hidden;
 }
 
 body {
@@ -87,11 +91,10 @@ body {
     min-height: 100%;
     background-color: white;
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
 }
 
 .app {
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -105,7 +108,7 @@ body {
 }
 
 .title h2 {
-    font-size: 6vw;
+    font-size: 3.5vw;
     font-weight: bolder;
     margin: 5vh 0 1vh 0;
     letter-spacing: 0.5vw;
@@ -113,7 +116,6 @@ body {
 }
 
 .input {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,11 +137,6 @@ body {
 .input textarea:active,
 .input textarea:focus{
     outline: none;
-}
-
-.input textarea::selection,
-.input textarea::-moz-selection {
-    background: grey;
 }
 
 .keyboard {
@@ -168,7 +165,7 @@ body {
 @media only screen and (min-width: 576px) {
 
     .title h2 {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
         margin: 2.5rem 0 0.5rem 0;
         letter-spacing: 0.2rem;
         margin-left: 0.2rem;

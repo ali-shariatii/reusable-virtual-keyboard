@@ -7,25 +7,27 @@ let keyboardApp = () => {
     const keyboard = document.getElementsByClassName("keyboard")[0];
     const words = keyboard.childNodes[1];
 
-    // KEYBOARD APPEARANCE
+    // KEYBOARD DISPLAYER
     let keyboardDisplayer = (input, keyboard) => {
         input.addEventListener("click", (ev) => {
             keyboard.style.bottom = "0";
             window.location.hash = "jumpToInput";
             document.getElementById("jumpToInput").focus();
-            // to prevent bubbling up to parent element for hiding the keyboard
+            document.childNodes[1].style.overflowY = "auto";
             ev.stopPropagation();
         }, false);
         
         keyboard.addEventListener("click", (ev) => {
             document.getElementById("jumpToInput").focus();
-            // to prevent bubbling up to parent element for hiding the keyboard
+            document.childNodes[1].style.overflowY = "auto";
             ev.stopPropagation();
         }, false);
         
         window.addEventListener("click", () => {
             window.location.hash = "jumpToTheTop";
             keyboard.style.bottom = "-100vh";
+            setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 1000);
+            ;
         });
     }
     
@@ -43,9 +45,7 @@ let keyboardApp = () => {
                 0: "fal",
                 1: "fa-arrow-alt-up"
             },
-            operatorFunction: () => {
-                console.log("I am capsLock function");
-                
+            operator: () => {
                 let btn = document.querySelectorAll(".words button");
     
                 for(let i = 0; i < btn.length; i++) {
@@ -74,8 +74,11 @@ let keyboardApp = () => {
                 0: "fal",
                 1: "fa-backspace"
             },
-            operatorFunction: () => {
-                console.log("I am backSpace function");
+            operator: () => {
+                //create a funciton that removes everything witch is highlighted
+                const txt = input.value.slice(0, input.value.lastIndexOf(input.value.charAt(input.value.length - 1)));
+                let txtNode = document.createTextNode(txt).nodeValue;
+                input.value = txtNode;
             }     
         }
     
@@ -88,23 +91,9 @@ let keyboardApp = () => {
                 0: "",
                 1: ""
             },
-            operatorFunction: () => {
-                console.log("I am symbol function");
+            operator: () => {
+                
             }   
-        }
-    
-        const emoji = {
-            value: "",
-            style: {
-                width: ""
-            },
-            class: {
-                0: "fal",
-                1: "fa-smile"
-            },
-            operatorFunction: () => {
-                console.log("I am emoji function");
-            } 
         }
     
         const spaceBar = {
@@ -116,8 +105,8 @@ let keyboardApp = () => {
                 0: "fal",
                 1: "fa-horizontal-rule"
             },
-            operatorFunction: () => {
-                console.log("I am spaceBar function");
+            operator: () => {
+                input.value += ` `;
             } 
         }
     
@@ -132,17 +121,16 @@ let keyboardApp = () => {
                 0: "fal",
                 1: "fa-arrow-alt-left"
             },
-            operatorFunction: () => {
-                console.log("I am lineBreak function");
+            operator: () => {
+                input.value += `\n`;
+
             } 
         }
     
-        // button entries for main keyboard (words class)
-        let mainKeyboardArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", capsLock, "z", "x", "c", "v", "b", "n", "m", backSpace, symbol, emoji, spaceBar, ".", lineBreak];
+        // button entries for main keyboard ('words' class)
+        let mainKeyboardArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", capsLock, "z", "x", "c", "v", "b", "n", "m", backSpace, symbol, "@", spaceBar, ".", lineBreak];
     
-        // button entries for symbol keyboard (symbols class)
-
-        // butoon entries for emoji keyboard (emojis class)
+        // button entries for symbol keyboard ('symbols' class)
 
         // button builder
         mainKeyboardArr.forEach(item => {
@@ -195,7 +183,7 @@ let keyboardApp = () => {
                     }
     
                     words.appendChild(newBtn);
-                    newBtn.addEventListener("click", item.operatorFunction);
+                    newBtn.addEventListener("click", item.operator);
                     break;
             }
         });
@@ -205,4 +193,3 @@ let keyboardApp = () => {
 };
 
 keyboardApp();
-
