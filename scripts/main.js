@@ -5,6 +5,7 @@ let keyboardApp = () => {
     const input = document.getElementsByClassName("input")[0].childNodes[1];
     const keyboard = document.getElementsByClassName("keyboard")[0];
     const words = keyboard.childNodes[1];
+    const symbols = keyboard.childNodes[3];
 
     // KEYBOARD DISPLAYER
     let keyboardDisplayer = (input, keyboard) => {
@@ -25,7 +26,7 @@ let keyboardApp = () => {
         window.addEventListener("click", () => {
             window.location.hash = "jumpToTheTop";
             keyboard.style.bottom = "-100vh";
-            setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 1000);
+            setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 500);
             ;
         });
     }
@@ -33,7 +34,14 @@ let keyboardApp = () => {
     keyboardDisplayer(input, keyboard);
 
     // KEYBOARD BUILDER
-    let keybordBuilder = () => {;
+    let keyboardBuilder = () => {;
+    
+        // button entries for main keyboard ('words' class)
+        let mainKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s"];
+    
+        // button entries for symbol keyboard ('symbols' class)
+        let symbolKeys = ["+", "&times;", "&div;", "=", "%", "_", "&euro;", "&pound;", "&yen;", "&cent;","!", "@", "#", "$", "/", "^", "&", "*", "(", ")", "`", "~", "\\", "|", "<", ">", "{", "}", "[", "]"];
+
         // button objects with special functions
         const capsLock = {
             value: "",
@@ -49,9 +57,9 @@ let keyboardApp = () => {
                 let indicatorBtn = document.querySelector(".fa-arrow-alt-up div");
                 
                 for(let i = 0; i < btn.length; i++) {
-                    if ((/[a-z]/.test(btn[i].innerText) || /[A-Z]/.test(btn[i].innerText)) && btn[i].innerText !== "Sym") {
+                    if (/^(?!Sym$)[a-zA-Z]+$/.test(btn[i].innerText)) {
                         let isLowerCase = true;
-                    
+
                         if (/[a-z]/.test(btn[i].innerHTML)) {
                             btn[i].innerText = btn[i].innerText.toUpperCase();
                             indicatorBtn.style.background = " rgb(16, 230, 16)";
@@ -63,8 +71,7 @@ let keyboardApp = () => {
                             btn[i].innerText = btn[i].innerText.toLowerCase();
                         }
                     }
-                }
-                
+                } 
             } 
         }
     
@@ -78,7 +85,6 @@ let keyboardApp = () => {
                 1: "fa-backspace"
             },
             operator: () => {
-
                 let txtVal = input.value;
                 let updateVal = `${txtVal.slice(0, input.selectionStart - 1)}${txtVal.slice(input.selectionStart)}`;
                 input.value = updateVal;
@@ -88,8 +94,11 @@ let keyboardApp = () => {
             }     
         }
     
-        const symbol = {
-            value: "Sym",
+        const keyboardSwitch = {
+            value: {
+                0: "Sym",
+                1: "ABC"
+            },
             style: {
                 width: "13%"
             },
@@ -98,7 +107,16 @@ let keyboardApp = () => {
                 1: ""
             },
             operator: () => {
-                
+                switch (words.style.display) {
+                    case "none":
+                        words.style.display ="flex"
+                        symbols.style.display = "none";
+                        break;
+                    case "flex":
+                        words.style.display ="none"
+                        symbols.style.display = "flex";
+                        break;
+                }
             }   
         }
     
@@ -131,87 +149,91 @@ let keyboardApp = () => {
                 input.value += `\n`;
             } 
         }
-    
-        // button entries for main keyboard ('words' class)
-        let mainKeyboardArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", capsLock, "z", "x", "c", "v", "b", "n", "m", backSpace, symbol, "@", spaceBar, ".", lineBreak];
-    
-        // button entries for symbol keyboard ('symbols' class)
+
+        symbolKeys.push(keyboardSwitch);
+        mainKeys.push(keyboardSwitch);
 
         // button builder
-        mainKeyboardArr.forEach(item => {
+        let btnBuilder = (array, container, defaultDisplay, keyboardSwitcher) => {
+            array.forEach(item => {
     
-            let newBtn = document.createElement("button");
+                let newBtn = document.createElement("button");
+        
+                newBtn.style.display = "inline-flex";
+                newBtn.style.justifyContent = "center";
+                newBtn.style.alignItems = "center";
+                newBtn.style.verticalAlign = "middle";
+                newBtn.style.width = "8%";
+                newBtn.style.height = "6vh";
+                newBtn.style.minHeight = "2.8125rem";
+                newBtn.style.margin = "0 1%";
+                newBtn.style.padding = "0";
+                newBtn.style.border = "none";
+                newBtn.style.borderRadius = "0.5rem";
+                newBtn.style.background = "rgba(255, 255, 255, 0.4)";
+                newBtn.style.cursor = "pointer";
+                newBtn.style.transition = "0.3s linear all";
+                newBtn.style.outline = "none";
+                newBtn.style.position = "relative";
+        
+                // setting the behavior of each button based on its type and functionality.
+                switch (true) {
+        
+                    // adding character to textarea for normal buttons (words & numbers & symbols) 
+                    case (typeof(item) === "string") :
+                        newBtn.innerHTML = item;
+                        container.appendChild(newBtn);
+                
+                        newBtn.addEventListener("click", function() {
+                            input.value += this.innerText;
+                        });
+                        break;
+        
+                    // displaying buttons with special application and calling their functions on click event
+                    default :
+                        container.appendChild(newBtn);
     
-            newBtn.style.display = "inline-flex";
-            newBtn.style.justifyContent = "center";
-            newBtn.style.alignItems = "center";
-            newBtn.style.verticalAlign = "middle";
-            newBtn.style.width = "8%";
-            newBtn.style.height = "6vh";
-            newBtn.style.minHeight = "2.8125rem";
-            newBtn.style.margin = "0 1%";
-            newBtn.style.padding = "0";
-            newBtn.style.border = "none";
-            newBtn.style.borderRadius = "0.5rem";
-            newBtn.style.background = "rgba(255, 255, 255, 0.4)";
-            newBtn.style.cursor = "pointer";
-            newBtn.style.transition = "0.3s linear all";
-            newBtn.style.outline = "none";
-            newBtn.style.position = "relative";
+                        if (item.style.width !== "") {
+                            newBtn.style.width = item.style.width;
+                        }
+        
+                        if (item.class[0] !== "" && item.class[1] !== "") {
+                            newBtn.classList.add(item.class[0], item.class[1]);
+                        }
+        
+                        //for capsLock btn indicator light 
+                        if  (/fa-arrow-alt-up/.test(newBtn.className)) {
+                            let indicatorBtn = document.createElement("div");
     
-            // setting the behavior of each button based on its type and functionality.
-            switch (true) {
+                            indicatorBtn.style.position = "absolute";
+                            indicatorBtn.style.top = "15%";
+                            indicatorBtn.style.right = "10%";
+                            indicatorBtn.style.borderRadius = "100%";
+                            indicatorBtn.style.background = "rgba(218, 218, 218, 0.6)";
+                            indicatorBtn.style.width = "0.525rem";
+                            indicatorBtn.style.height = "0.525rem";
+                            indicatorBtn.style.transition = "0.15s ease-in all";
     
-                // adding character to textarea for normal buttons (words & numbers & symbols) 
-                case (typeof(item) === "string" || typeof(item) === "number") :
-                    newBtn.innerHTML = item;
-                    words.appendChild(newBtn);
-            
-                    newBtn.addEventListener("click", function() {
-                        const txt = this.innerText;
-                        input.value += txt;
-                    });
-                    break;
+                            newBtn.appendChild(indicatorBtn);
+                        }
     
-                // displaying buttons with special application and calling their functions on click event
-                default :
-                    words.appendChild(newBtn);
+                        if (item.value !== "") {
+                            newBtn.innerHTML = item.value[keyboardSwitcher];
+                        }
+        
+                        newBtn.addEventListener("click", item.operator);
+                        break;
+                }
+            });
 
-                    if (item.style.width !== "") {
-                        newBtn.style.width = item.style.width;
-                    }
-    
-                    if (item.class[0] !== "" && item.class[1] !== "") {
-                        newBtn.classList.add(item.class[0], item.class[1]);
-                    }
-    
-                    //for capsLock btn indicator light 
-                    if  (/fa-arrow-alt-up/.test(newBtn.className)) {
-                        let indicatorBtn = document.createElement("div");
-                        indicatorBtn.style.position = "absolute";
-                        indicatorBtn.style.top = "15%";
-                        indicatorBtn.style.right = "10%";
-                        indicatorBtn.style.borderRadius = "100%";
-                        indicatorBtn.style.background = "rgba(218, 218, 218, 0.6)";
-                        indicatorBtn.style.width = "0.525rem";
-                        indicatorBtn.style.height = "0.525rem";
-                        indicatorBtn.style.transition = "0.2s ease-in all";
+            container.style.display = defaultDisplay;
+        };
 
-                        newBtn.appendChild(indicatorBtn);
-                    }
-
-                    if (item.value !== "") {
-                        newBtn.innerHTML = item.value;
-                    }
-    
-                    newBtn.addEventListener("click", item.operator);
-                    break;
-            }
-        });
+        btnBuilder(mainKeys, words, "flex", 0);
+        btnBuilder(symbolKeys, symbols, "none", 1)
     };
 
-    keybordBuilder();
-    console.log(document.querySelector(".fa-arrow-alt-up").childNodes);
+    keyboardBuilder();
 };
 
-keyboardApp();
+window.addEventListener("load", keyboardApp);
