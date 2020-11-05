@@ -1,6 +1,9 @@
 "use strict";
 
-/*********************************************************
+/******************************************************************************************************
+It is recommended that this file to be embedded to the project along with the main.css file.
+*******************************************************************************************************
+
 For fast and easy integration of this keyboard into your project, 
 you should only change the following after reading each one's comment:
 
@@ -33,7 +36,7 @@ you should only change the following after reading each one's comment:
     have more than one keyboard.
     
     You may change its value, comment it out or leave it empty.
-*********************************************************/
+******************************************************************************************************/
  
 let keysObj1 = {
  
@@ -93,7 +96,7 @@ let keyboardApp = () => {
         window.addEventListener("click", () => {
             window.location.hash = "jumpToTheTop";
             keyboardLayout.style.bottom = "-100vh";
-            setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 500);
+            setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 10);
             ;
         });
     }
