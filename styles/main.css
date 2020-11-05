@@ -108,7 +108,7 @@ body {
 }
 
 .title h2 {
-    font-size: 3.5vw;
+    font-size: 3.7vw;
     font-weight: bolder;
     margin: 5vh 0 1vh 0;
     letter-spacing: 0.5vw;
@@ -131,7 +131,7 @@ body {
     margin-bottom: 40vh;
     background: rgba(241, 241, 241, 0.7);
     border: none;
-    box-shadow: 0px -3px 10px rgb(206, 205, 205);
+    box-shadow: 0px -3px 10px rgb(209, 209, 209);
 }
 
 .input textarea:active,
