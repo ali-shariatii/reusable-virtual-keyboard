@@ -1,7 +1,9 @@
 "use strict";
 
 /******************************************************************************************************
-V1.0 - Supported Languages: English & French
+V1.0 -  Supported Language(s): English, French
+        Added Language(s): English
+        
 It is recommended that this file to be embedded to the project along with the main.css file.
 *******************************************************************************************************
 
@@ -12,10 +14,12 @@ you should only change the following after reading each one's comment:
     This is your main keyboard characters. Change the items 
     as you see fit as long as the total number of them is standard (38 or 39).
 
-    Standard buttons with function (caps lock, back space, keyboard switcher, space & line break), 
+    Standard functional buttons (caps lock, back space, keyboard switcher, space & line break), 
     will be injected automatically. So there is no need include them in the array.
 
     You cannot comment it out or leave it empty.
+
+    Only numbers and strings as array items, are compatible with the app default settings.
 
 - keysObj1.switcher
     This string will be displayed as a keyboard switcher button when you 
@@ -27,10 +31,12 @@ you should only change the following after reading each one's comment:
     This is your second keyboard characters. Change the items 
     as you see fit as long as the total number of them is standard (38 or 39).
 
-    Standard buttons with function (caps lock, back space, keyboard switcher, space & line break), 
+    Standard functional buttons (caps lock, back space, keyboard switcher, space & line break), 
     will be injected automatically. So there is no need include them in the array.
 
     You may comment it out if you don't need a second keyboard. 
+
+        Only numbers and strings as array items, are compatible with the app default settings.
 
 - keysObj2.switcher
     This string will be displayed as a keyboard switcher button when you 
