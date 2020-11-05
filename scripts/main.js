@@ -1,6 +1,7 @@
 "use strict";
 
 /******************************************************************************************************
+V1.0 - Supported Languages: English & French
 It is recommended that this file to be embedded to the project along with the main.css file.
 *******************************************************************************************************
 
@@ -39,12 +40,8 @@ you should only change the following after reading each one's comment:
 ******************************************************************************************************/
  
 let keysObj1 = {
- 
     arr : ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m",":)", "."],
     switcher : "ABC", 
-    stringifier : () => {
-        
-    },
 } 
 
 let keysObj2 = {
@@ -55,7 +52,7 @@ let keysObj2 = {
 
 let keyboardApp = () => {
 
-    const input = document.getElementsByClassName("input")[0].childNodes[1];
+    const input = document.getElementById("txtInput");
 
     // KEYBOARD LAYOUT BUILDER
     const keyboardLayout = document.createElement("div");
@@ -81,20 +78,20 @@ let keyboardApp = () => {
     let keyboardDisplayer = (input, keyboardLayout) => {
         input.addEventListener("click", (ev) => {
             keyboardLayout.style.bottom = "0";
-            window.location.hash = "jumpToInput";
-            document.getElementById("jumpToInput").focus();
+            window.location.hash = "txtInput";
+            document.getElementById("txtInput").focus();
             document.childNodes[1].style.overflowY = "auto";
             ev.stopPropagation();
         }, false);
         
         keyboardLayout.addEventListener("click", (ev) => {
-            document.getElementById("jumpToInput").focus();
+            document.getElementById("txtInput").focus();
             document.childNodes[1].style.overflowY = "auto";
             ev.stopPropagation();
         }, false);
         
         window.addEventListener("click", () => {
-            window.location.hash = "jumpToTheTop";
+            window.location.hash = "txtAreaTitle";
             keyboardLayout.style.bottom = "-100vh";
             setTimeout(() => document.childNodes[1].style.overflowY = "hidden", 10);
             ;
