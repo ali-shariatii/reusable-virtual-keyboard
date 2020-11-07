@@ -7,7 +7,7 @@ V1.0 -  Supported Language(s): English, French
         Default built-in Language(s): English
 
 UPCOMING UPDATES:
-V1.1 -  back space button - a selected range to be removed. the caret will remain in the endPoint
+V1.1 -  back space button - a selected range to be removed. the caret will remain at the endPoint
         spacebar button - a selected range to be removed before creating a space.
         linebreak button - a selected range to be removed before creating a line break.
 
