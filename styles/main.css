@@ -1,6 +1,6 @@
 /*
-This style includes the min necessary styles for standardization & for the keyboard to work properly.
-It is recommended to be completely embedded to the project along with the main.js file.
+This style includes the min necessary styles for page standardization & for the keyboard to work properly.
+It is recommended to be completely embedded in the project along with the main.js file.
 */
 
 * {
@@ -40,6 +40,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: text;
 }
 
 .title h2 {
@@ -70,7 +71,7 @@ body {
 }
 
 .input textarea:active,
-.input textarea:focus{
+.input textarea:focus {
     outline: none;
 }
 

@@ -1,18 +1,29 @@
 "use strict";
 
 /******************************************************************************************************
+It is recommended that this file to be embedded in the project along with the main.css file.
+
 V1.0 -  Supported Language(s): English, French
-        Added Language(s): English
-        
-It is recommended that this file to be embedded to the project along with the main.css file.
+        Default built-in Language(s): English
+
+UPCOMING UPDATES:
+V1.1 -  back space button - a selected range to be removed. the caret will remain in the endPoint
+        spacebar button - a selected range to be removed before creating a space.
+        linebreak button - a selected range to be removed before creating a line break.
+
+V1.2 - a second built-in language : French
+
+WARNING: Some of the JS features are in the experimental stage and might not be supported in the older 
+browsers or even new ones (ios safari at the moment may not fully support the syntaxes). 
+It is highly recomended that you use the newest browsers for testing and debugging. 
 *******************************************************************************************************
 
 For fast and easy integration of this keyboard into your project, 
 you should only change the following after reading each one's comment:
 
 - keysObj1.arr 
-    This is your main keyboard characters. Change the items 
-    as you see fit as long as the total number of them is standard (38 or 39).
+    This is your main keyboard characters. You may include numbers and / or words 
+    as you see fit, as long as the total number of characters is standard (38 or 39).
 
     Standard functional buttons (caps lock, back space, keyboard switcher, space & line break), 
     will be injected automatically. So there is no need include them in the array.
@@ -44,7 +55,12 @@ you should only change the following after reading each one's comment:
     
     You may change its value, comment it out or leave it empty.
 ******************************************************************************************************/
- 
+
+
+/********************************************** */
+/********** RECOMMENDED AREA TO EDIT ********** */
+/********************************************** */
+
 let keysObj1 = {
     arr : ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m",":)", "."],
     switcher : "ABC", 
@@ -54,6 +70,10 @@ let keysObj2 = {
     arr : ["+", "&times;", "&div;", "=", "%", "_", "&euro;", "&pound;", "&yen;", "&cent;","!", "@", "#", "$", "/", "^", "&", "*", "(", ")", "`", "~", "\\", "|", "<", ">", "{", "}", "[", "]", "-", "'", "\"", ":", ";", ",", "?", ";D", "."],
     switcher : "Sym" 
 } 
+
+/********************************************** */
+/****** END OF RECOMMENDED AREA TO EDIT ******* */
+/********************************************** */
 
 
 let keyboardApp = () => {
@@ -176,12 +196,45 @@ let keyboardApp = () => {
                     1: "fa-backspace"
                 },
                 operator: () => {
-                    let txtVal = input.value;
-                    let updateVal = `${txtVal.slice(0, input.selectionStart - 1)}${txtVal.slice(input.selectionStart)}`;
-                    input.value = updateVal;
+                    console.clear();
+
+                    // get access to the input value 
+                    let txt = input.value;
+
+                    // find the caret position (to remove item index N, the caret position must be N+1.)
+                    let caret = input.selectionStart;
                     
-                    //create a function that removes everything witch is highlighted
-                    //input.selectionStart = 1;
+                    // find the char the carot is on
+                    let charToRemoveIndex = caret - 1;
+
+                    // convert str to arr
+                    let txtArr = txt.split("");
+
+                    // find the charToRemove and remove it!
+                    let newTxtArr = [];
+                    txtArr.forEach((item, index) => {
+                        if (index !== charToRemoveIndex) {
+                            newTxtArr.push(item);
+                        };
+                        return newTxtArr;
+                    });
+
+                    // convert back the arr to str
+                    let newTxt = newTxtArr.join("");
+
+                    // find the index of the target char in the new input. (target char : the char which was previously before the charToRemove char in the original input.)
+                    let newCaretPosition = txtArr.indexOf(txt[charToRemoveIndex], charToRemoveIndex);
+
+                    // update the input with the new chars
+                    input.value = newTxt;
+                
+                    // place the caret after the target char
+                    input.setSelectionRange(newCaretPosition, newCaretPosition);
+                    
+                    // prevent the carot to jump if it was positioned at the beginning of the text input
+                    if (caret === 0) {
+                        input.setSelectionRange(0, 0);
+                    }
                 }     
             }
         
@@ -226,7 +279,31 @@ let keyboardApp = () => {
                     1: "fa-horizontal-rule"
                 },
                 operator: () => {
+                    //console.clear();
+
+                    // get access to the input value 
+                    let txt = input.value;
+
+                    // find the caret position
+                    let caret = input.selectionStart;
+                    
+                    // convert str to arr
+                    let txtArr = txt.split("");
+
+                    // add a space after the caret position
+                    txtArr.splice(caret, 0, " ");
+
+                    // convert back the arr to str
+                    let newTxt = txtArr.join("");
+
+                    // find the index of the target char in the new input. (target char : the char which caret was on it in the original input text)
+                    let newCaretPosition = txtArr.indexOf(txt[caret], caret);
+
+                    // update the input with the new chars
+                    input.value = newTxt;
                 
+                    // place the caret after the target char
+                    input.setSelectionRange(newCaretPosition, newCaretPosition);
                 } 
             }
         
@@ -242,7 +319,31 @@ let keyboardApp = () => {
                     1: "fa-arrow-alt-left"
                 },
                 operator: () => {
-                    input.value += `\n`;
+                    //console.clear();
+
+                    // get access to the input value 
+                    let txt = input.value;
+
+                    // find the caret position
+                    let caret = input.selectionStart;
+                    
+                    // convert str to arr
+                    let txtArr = txt.split("");
+
+                    // add a line break after the caret position
+                    txtArr.splice(caret, 0, "\n");
+
+                    // convert back the arr to str
+                    let newTxt = txtArr.join("");
+
+                    // find the index of the target char in the new input. (target char : the char which caret was on it in the original input text)
+                    let newCaretPosition = txtArr.indexOf(txt[caret], caret + 1);
+
+                    // update the input with the new chars
+                    input.value = newTxt;
+                
+                    // place the caret after the target char
+                    input.setSelectionRange(newCaretPosition, newCaretPosition);
                 } 
             }
 
@@ -412,7 +513,7 @@ let keyboardApp = () => {
         });
     };
 
-    // PASSING THE ARGUMENTS TO THE KEYBOARD APP.
+    // PASSING ARGUMENTS TO THE KEYBOARD APP + FILTERING ALARM FOR SAFER APP MANIPULATION
     if (
         keysObj1.hasOwnProperty("arr") !== true
         || /38|39/.test(keysObj1.arr.length) !== true
@@ -433,9 +534,6 @@ let keyboardApp = () => {
     {
         keyboardBuilder(keysObj1.arr, keysObj1.switcher, keysObj2.arr, keysObj2.switcher);
     }
-         
-
-
 };
 
 window.addEventListener("load", keyboardApp);
