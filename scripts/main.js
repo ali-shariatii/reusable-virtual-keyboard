@@ -204,7 +204,7 @@ let keyboardApp = () => {
                     // find the caret position (to remove item index N, the caret position must be N+1.)
                     let caret = input.selectionStart;
                     
-                    // find the char the carot is on
+                    // find the char the caret is on
                     let charToRemoveIndex = caret - 1;
 
                     // convert str to arr
@@ -231,7 +231,7 @@ let keyboardApp = () => {
                     // place the caret after the target char
                     input.setSelectionRange(newCaretPosition, newCaretPosition);
                     
-                    // prevent the carot to jump if it was positioned at the beginning of the text input
+                    // prevent the caret to jump if it was positioned at the beginning of the text input
                     if (caret === 0) {
                         input.setSelectionRange(0, 0);
                     }
