@@ -235,7 +235,7 @@ let keyboardApp = () => {
           // }
         },
       };
-    }
+    
 
     const keyboardSwitch = {
       value: null,
@@ -531,6 +531,6 @@ if (
 ) {
   keyboardBuilder(keysObj1.arr, keysObj1.switcher, keysObj2.arr, keysObj2.switcher);
 }
-};
+}
 
 window.addEventListener("load", keyboardApp);
