@@ -196,27 +196,28 @@ let keyboardApp = () => {
           1: "fa-backspace"
         },
         operator: () => {
-          console.clear();
-
+          // console.clear()
+          
           // if caret already at 0 index, do NOTHING!
-          if (input.selectionStart === 0) return;
+          // if (input.selectionStart === 0 && input.selectionEnd === 0) return;
 
           // get access to the input value
           let txt = input.value;
+          
+          let caret = input.selectionStart
 
           // set start index conditionally:
           //  one position behind the caret if no selection is made, or
           //  no modification, if a selection range is made
           let startIdx =
-            input.selectionStart === input.selectionEnd
-              ? input.selectionStart - 1
-              : input.selectionStart;
+            caret === input.selectionEnd
+              ? caret - 1
+              : caret;
 
           let endIdx = input.selectionEnd;
 
           // declare a "pre-selection" slice of text, a "middle" which will be the deleted portion, and a "post-selection" slice of text
           let pre = txt.slice(0, startIdx);
-          let mid = txt.slice(startIdx, endIdx);
           let post = txt.slice(endIdx);
 
           // concat pre and post, leaving out the selected middle
@@ -228,11 +229,10 @@ let keyboardApp = () => {
           // set caret with offset to account for deleted characters
           input.setSelectionRange(startIdx, startIdx);
 
-          // not sure what this does
           // prevent the caret to jump if it was positioned at the beginning of the text input
-          // if (caret === 0) {
-          //     input.setSelectionRange(0, 0);
-          // }
+          if (caret === 0) {
+              input.setSelectionRange(0, 0);
+          }
         },
       };
     
@@ -279,7 +279,7 @@ let keyboardApp = () => {
       },
       operator: () => {
         //console.clear();
-
+        
         // get access to the input value 
         let txt = input.value;
 
