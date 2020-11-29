@@ -141,7 +141,7 @@ let keyboardApp = () => {
           // console.clear()
           
           // if caret already at 0 index, do NOTHING!
-          // if (input.selectionStart === 0 && input.selectionEnd === 0) return;
+          if (input.selectionStart === 0 && input.selectionEnd === 0) return;
 
           // get access to the input value
           let txt = input.value;
