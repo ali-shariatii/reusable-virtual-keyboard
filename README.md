@@ -85,6 +85,8 @@ Minimum recommended technical knowledge prior to rebuilding the project:
     * adding onload event listener
     * adding spread operator
     * compatibility issue: adding smooth transition for safari and small device browsers
+* v1.3
+    * range selection for all special buttons
 * v2.0
     * adding a second language with a switch button
 
